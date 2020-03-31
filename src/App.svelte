@@ -1,23 +1,42 @@
 <script>
 	let name = 'Svelte';
-  let number = 50;
-  let src = "https://i.pinimg.com/236x/fe/d3/fe/fed3fe3a113659f28c4de5c7d205fcc3--owl-shirt-owl-pictures.jpg";
-  let altText = "Owl awsome";
-  let htmlString = "<strong>This is strong text</strong> with <em>italick font</em>.";
+  let inputValue = "";
+  let pos = {
+    x: 0,
+    y: 0
+  }
+  function changeNameHandler(){
+    name = "This name changed!";
+  }
+  function mousemoveHandler(event){
+    pos.x = event.x;
+    pos.y = event.y;
+  }
+  function submitHandler(event){
+    // event.preventDefault();
+    console.log("inputvalue: ", inputValue);
+  }
 </script>
 
-<h1>Hello {name}!</h1>
-<h2>{name.toUpperCase()}</h2>
-<h2>{(Math.random()*number).toFixed(3)}</h2>
-<img {src} alt={altText}>
-<p>{@html htmlString}</p>
+<h1>{name}</h1>
+<button on:click={changeNameHandler}>Change name</button>
+<div class="playground" on:mousemove={mousemoveHandler}>
+  <h2>X: {pos.x}, Y: {pos.y}</h2>
+</div>
+<form on:submit|preventDefault|once={submitHandler}>
+  <input type="text" on:input={event =>(inputValue = event.target.value)} />
+  <button type="submit">Submit form</button>
+</form>
 
 <style>
 	:global(h1) {
 		color: purple;
 	}
-  img {
-    width: 100px;
-    height: auto;
+  .playground {
+    width: 400px;
+    height: 200px;
+    padding:1rem;
+    margin-bottom: 1rem;
+    border: 1px solid black;
   }
 </style>
