@@ -1,34 +1,31 @@
 <script>
-	let name = 'Svelte';
-  let counter = 0;
-  $: counterClass = counter % 2===0 ?"red":"blue";
-  $: upperName = name.toUpperCase();
-  $: lowerName = name.toLowerCase();
-  $: {
-    console.log("Name: ", name);
-    console.log("Counter: ", counter);
-  }
-  $: if (counter === 10){
-    name = "Counter is equal 10"
-  }
-  function changeName(){
-    name = "New name";
-  }
+  let name = 'Svelte';
+  let agree = true;
+  let text = "";
+  let select = "1";
+  let sex = "male";
 </script>
 
 <h1>{name}</h1>
-<h2>{upperName}</h2>
-<h2>{lowerName}</h2>
-<button on:click={changeName}>Change name</button>
-
-<h2 class={counterClass} >Counter {counter}</h2>
-<button on:click={()=>counter++}>Add 1 to counter</button>
+<input type="text" bind:value={name} />
+<hr>
+<input type="checkbox" bind:checked={agree} />
+{agree}
+<hr>
+<textarea bind:value={text} />
+<div style="white-space: pre-wrap">{text}</div>
+<hr>
+<select bind:value={select}>
+  <option value="0">Option 0</option>
+  <option value="1">Option 1</option>
+  <option value="2">Option 2</option>
+</select>
+<hr>
+<input type="radio" value="female" bind:group={sex}/>Female
+<input type="radio" value="male" bind:group={sex}/>Male
+<br />
+Sex: {sex}
+<hr>
 
 <style>
- .blue{
-  color: blue;
- }
- .red{
-  color: red;
- }
 </style>
